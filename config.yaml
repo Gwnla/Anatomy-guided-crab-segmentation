@@ -1,0 +1,53 @@
+data:
+  labeled_dir: ../labeled
+  unlabeled_dir: ../unlabeled
+  output_dir: ./outputs
+  processed_dir: ./processed
+  train_ratio: 0.8
+  random_seed: 42
+
+model:
+  image_size: 1024
+  encoder_embed_dim: 256
+  num_classes: 5
+  class_names:
+    - body
+    - left_claw
+    - right_claw
+    - left_legs
+    - right_legs
+
+  graph_node_dim: 128
+  graph_hidden_dim: 256
+  graph_dropout: 0.1
+
+training:
+  batch_size: 1
+  num_epochs: 60
+  learning_rate: 0.00003
+  weight_decay: 0.001
+  min_lr: 0.000001
+  warmup_epochs: 10
+
+  ema_decay: 0.999
+  ema_start_epoch: 1
+
+  lambda_sup: 2.0
+  lambda_consistency: 0.3
+  lambda_graph: 0.05
+  lambda_symmetry: 0.0
+  lambda_edge: 0.05
+
+  pseudo_threshold: 0.7
+
+  resume: null
+
+  ablation: semi
+
+  semi_pseudo_threshold: 0.95
+  semi_pseudo_weight: 0.05
+
+eval:
+  val_interval: 1
+  save_best: true
+  metric: mIoU
